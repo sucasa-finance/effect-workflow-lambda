@@ -1,0 +1,39 @@
+README.md
+  s_aa9feb18eaf7eb::t_0ad875dc50c05b 23,27,57,68,92,126,134,137-139,143,154,169,175,181,184-188,190-192,194-200,203-234,237-239,245,248,253-257,259,261,263-278,293,298,302,305,307,309-321,323-324,326-339,341-342,344-345
+  s_aa9feb18eaf7eb::t_2884cb48486d9d 20-22
+  s_aa9feb18eaf7eb::t_5aa1be9be796ec 24-26
+  s_aa9feb18eaf7eb::t_567e952ba7b833 54-56
+  s_aa9feb18eaf7eb::t_6253e1008bc5ab 58-60
+  s_aa9feb18eaf7eb::t_886d9b783a6484 67
+  s_aa9feb18eaf7eb::t_5ba06f5352004b 69-70
+  s_aa9feb18eaf7eb::t_8fc4407cfb66a6 89-91
+  s_aa9feb18eaf7eb::t_595e4e9ad8a645 93-94
+  s_aa9feb18eaf7eb::t_ab2cf85ffedfe5 123-125
+  s_aa9feb18eaf7eb::t_67d10265017c1c 127-129,131-133
+  s_aa9feb18eaf7eb::t_3bab1ea76ca3f3 135-136
+  s_aa9feb18eaf7eb::t_56f65e2f58fb60 140-142
+  s_aa9feb18eaf7eb::t_228b41d7a40ff9 144-146
+  s_aa9feb18eaf7eb::t_64844233380666 155-157
+  s_aa9feb18eaf7eb::t_b366e36efc1c62 166-168
+  s_aa9feb18eaf7eb::t_0677c4fd126e36 170-174
+  s_aa9feb18eaf7eb::t_f2a962edd31428 176
+  s_aa9feb18eaf7eb::t_5e5de6188ed329 179-180
+  s_aa9feb18eaf7eb::t_d2b910f7a5ce75 346-348
+  s_aa9feb18eaf7eb::t_2af6e89b617ca3 1,3,7-14,17-19,29-31,36-53,61-65,72,74,76-79,81-85,87-88,96,98,100-122,130,149,151-152,158,160,162-165,349-355,357-358,361-369,373,376-378,381-391,393
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "34dc6391ea48eda237236f609409f6b94d3a5e68",
+  "prompts": {},
+  "sessions": {
+    "s_aa9feb18eaf7eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89cc9306-8d65-4e2d-89ad-d642ce6dbbd9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Kevin <kevin@sucasa.com.au>"
+    }
+  }
+}
