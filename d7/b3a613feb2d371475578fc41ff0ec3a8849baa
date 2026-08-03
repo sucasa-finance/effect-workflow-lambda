@@ -1,0 +1,19 @@
+README.md
+  s_aa9feb18eaf7eb::t_1e2a561233aaf8 1-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "d7b3a613feb2d371475578fc41ff0ec3a8849baa",
+  "prompts": {},
+  "sessions": {
+    "s_aa9feb18eaf7eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89cc9306-8d65-4e2d-89ad-d642ce6dbbd9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Kevin <kevin@sucasa.com.au>"
+    }
+  }
+}
