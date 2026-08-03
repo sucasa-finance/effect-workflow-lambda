@@ -1,0 +1,27 @@
+{
+  "name": "@effect-workflow-engine/app-sqs-mysql",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "infra:up": "docker compose up -d --wait",
+    "infra:down": "docker compose down -v",
+    "deploy": "bash scripts/deploy.sh",
+    "destroy": "cd infra && PULUMI_CONFIG_PASSPHRASE='' pulumi destroy --yes --stack local && docker compose down -v",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@effect-aws/client-sqs": "2.0.0-beta.4",
+    "@effect-aws/lambda": "2.0.0-beta.4",
+    "@effect-workflow-engine/engine": "workspace:*",
+    "@effect-workflow-engine/workflows": "workspace:*",
+    "@effect/sql-mysql2": "4.0.0-beta.62",
+    "@pulumi/aws": "^7.40.0",
+    "@pulumi/pulumi": "^3.255.0",
+    "effect": "4.0.0-beta.62"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "typescript": "^5.7.0"
+  }
+}

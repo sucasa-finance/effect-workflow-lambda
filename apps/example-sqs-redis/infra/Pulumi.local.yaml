@@ -1,0 +1,12 @@
+config:
+  aws:region: ap-southeast-2
+  aws:accessKey: test
+  aws:secretKey: test
+  aws:skipCredentialsValidation: "true"
+  aws:skipMetadataApiCheck: "true"
+  aws:skipRequestingAccountId: "true"
+  aws:endpoints:
+    - sqs: http://localhost:4567
+      lambda: http://localhost:4567
+      iam: http://localhost:4567
+encryptionsalt: v1:rD04MPFHGNs=:v1:ZMmOtK+l0LkOCbfT:tIfkrMDB0N0MAmPu9xEVFZkWUsVW1g==

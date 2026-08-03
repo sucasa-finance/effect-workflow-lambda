@@ -1,0 +1,39 @@
+{
+  "name": "@effect-workflow-engine/engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./LambdaWorkflowEngine": "./src/LambdaWorkflowEngine.ts",
+    "./LambdaWorkflowEngine.live": "./src/LambdaWorkflowEngine.live.ts",
+    "./LambdaWorkflowEngine.local": "./src/LambdaWorkflowEngine.local.ts",
+    "./WorkflowStorage": "./src/WorkflowStorage.ts",
+    "./MemoryWorkflowStorage.live": "./src/MemoryWorkflowStorage.live.ts",
+    "./MySqlWorkflowStorage.live": "./src/MySqlWorkflowStorage.live.ts",
+    "./PostgresWorkflowStorage.live": "./src/PostgresWorkflowStorage.live.ts",
+    "./RedisWorkflowStorage.live": "./src/RedisWorkflowStorage.live.ts",
+    "./WorkflowModule": "./src/WorkflowModule.ts",
+    "./handler/sqs/Send": "./src/handler/sqs/Send.ts",
+    "./handler/sqs/Handler": "./src/handler/sqs/Handler.ts",
+    "./handler/sqs/Layer": "./src/handler/sqs/Layer.ts"
+  },
+  "dependencies": {
+    "@effect-aws/client-sqs": "2.0.0-beta.4",
+    "@effect-aws/lambda": "2.0.0-beta.4",
+    "@effect/sql-mysql2": "4.0.0-beta.62",
+    "@effect/sql-pg": "4.0.0-beta.62",
+    "effect": "4.0.0-beta.62"
+  },
+  "devDependencies": {
+    "@effect-workflow-engine/workflows": "workspace:*",
+    "@effect/vitest": "4.0.0-beta.62",
+    "@types/node": "^26.1.2",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  }
+}
