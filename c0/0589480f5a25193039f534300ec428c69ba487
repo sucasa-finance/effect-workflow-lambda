@@ -1,0 +1,23 @@
+README.md
+  s_aa9feb18eaf7eb::t_2b822e23cd78f4 7-64
+  s_aa9feb18eaf7eb::t_1e2a561233aaf8 1-6,66-75,83-96
+  s_aa9feb18eaf7eb::t_34b5c1f55fdb83 77-82
+  s_aa9feb18eaf7eb::t_d1e4c63717c2ff 65
+  s_aa9feb18eaf7eb::t_e0c80517658fef 76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "c00589480f5a25193039f534300ec428c69ba487",
+  "prompts": {},
+  "sessions": {
+    "s_aa9feb18eaf7eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89cc9306-8d65-4e2d-89ad-d642ce6dbbd9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": null
+    }
+  }
+}
