@@ -1,0 +1,23 @@
+README.md
+  s_aa9feb18eaf7eb::t_0b29aa673a7c2a 47-48,50-51,54,57-63,67,69,71-88,91,93,95-100
+  s_aa9feb18eaf7eb::t_2b822e23cd78f4 7-46,49,52-53,55-56,64-66
+  s_aa9feb18eaf7eb::t_e0c80517658fef 90
+  s_aa9feb18eaf7eb::t_34b5c1f55fdb83 92,94
+  s_aa9feb18eaf7eb::t_1e2a561233aaf8 1-6,68,70,89,101-114
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "bce5998cb0e290eb3617221949868a70785f7ab2",
+  "prompts": {},
+  "sessions": {
+    "s_aa9feb18eaf7eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89cc9306-8d65-4e2d-89ad-d642ce6dbbd9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": null
+    }
+  }
+}
