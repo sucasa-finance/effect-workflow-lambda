@@ -1,0 +1,6 @@
+name: ewf-sqs-redis
+runtime:
+  name: nodejs
+  options:
+    typescript: true
+description: Effect Workflow Engine — SQS + Redis example infrastructure

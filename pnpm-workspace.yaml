@@ -1,0 +1,11 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+overrides:
+  "@effect/platform-node-shared": "4.0.0-beta.62"
+  "@effect/platform-node": "4.0.0-beta.62"
+allowBuilds:
+  esbuild: true
+  msgpackr-extract: true
+  protobufjs: true
+  workerd: true
