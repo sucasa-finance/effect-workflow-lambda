@@ -1,0 +1,25 @@
+services:
+  redis:
+    image: redis:7
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  floci:
+    image: floci/floci:1.5.30
+    ports:
+      - "4567:4566"
+    environment:
+      - FLOCI_HOSTNAME=floci
+      - FLOCI_BASE_URL=http://floci:4566
+      - LAMBDA_DOCKER_NETWORK=sqs-redis_default
+      - LAMBDA_DOCKER_FLAGS=-e REDIS_HOST=redis -e REDIS_PORT=6379
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:4566/_floci/health"]
+      interval: 5s
+      retries: 10

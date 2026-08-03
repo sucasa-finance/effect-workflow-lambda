@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "composite": true,
+    "outDir": "dist"
+  },
+  "references": [
+    { "path": "packages/engine" },
+    { "path": "packages/workflows" },
+    { "path": "apps/sqs-mysql" },
+    { "path": "apps/sqs-redis" },
+    { "path": "apps/sqs-postgres" }
+  ],
+  "include": []
+}

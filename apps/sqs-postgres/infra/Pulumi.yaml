@@ -1,0 +1,6 @@
+name: ewf-sqs-postgres
+runtime:
+  name: nodejs
+  options:
+    typescript: true
+description: Effect Workflow Engine — SQS + Postgres example infrastructure

@@ -1,0 +1,6 @@
+name: ewf-sqs-mysql
+runtime:
+  name: nodejs
+  options:
+    typescript: true
+description: Effect Workflow Engine — SQS + MySQL example infrastructure
