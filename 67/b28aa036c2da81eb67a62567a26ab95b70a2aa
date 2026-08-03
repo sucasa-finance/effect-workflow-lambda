@@ -1,0 +1,19 @@
+README.md
+  s_aa9feb18eaf7eb::t_0ad875dc50c05b 1,3,9,11-23,28-56,59-62,64,66,68-71,73-77,79-86,88,90,92-139,141,144,146-150,152-168,171,173,175-180,182-184,186-192,195,197,199-209,211-222,225-226,229-231,237,240,245-249,251,253,255-270,285,290,294,297,299,301-313,317,320-322,325-335,337
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "67b28aa036c2da81eb67a62567a26ab95b70a2aa",
+  "prompts": {},
+  "sessions": {
+    "s_aa9feb18eaf7eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89cc9306-8d65-4e2d-89ad-d642ce6dbbd9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Kevin <kevin@sucasa.com.au>"
+    }
+  }
+}
