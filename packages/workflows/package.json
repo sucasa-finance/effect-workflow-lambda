@@ -1,0 +1,41 @@
+{
+  "name": "@effect-workflow-engine/workflows",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./greet.workflow.define": "./src/greet.workflow.define.ts",
+    "./greet.workflow.live": "./src/greet.workflow.live.ts",
+    "./crash.workflow.define": "./src/crash.workflow.define.ts",
+    "./crash.workflow.live": "./src/crash.workflow.live.ts",
+    "./approval.workflow.define": "./src/approval.workflow.define.ts",
+    "./approval.workflow.live": "./src/approval.workflow.live.ts",
+    "./duplicate-execute.workflow.define": "./src/duplicate-execute.workflow.define.ts",
+    "./duplicate-execute.workflow.live": "./src/duplicate-execute.workflow.live.ts",
+    "./interrupt-activity.workflow.define": "./src/interrupt-activity.workflow.define.ts",
+    "./interrupt-activity.workflow.live": "./src/interrupt-activity.workflow.live.ts",
+    "./multi-signal.workflow.define": "./src/multi-signal.workflow.define.ts",
+    "./multi-signal.workflow.live": "./src/multi-signal.workflow.live.ts",
+    "./fan-out.workflow.define": "./src/fan-out.workflow.define.ts",
+    "./fan-out.workflow.live": "./src/fan-out.workflow.live.ts",
+"./large-payload.workflow.define": "./src/large-payload.workflow.define.ts",
+    "./large-payload.workflow.live": "./src/large-payload.workflow.live.ts",
+    "./typed-failure.workflow.define": "./src/typed-failure.workflow.define.ts",
+    "./typed-failure.workflow.live": "./src/typed-failure.workflow.live.ts",
+    "./interruptible.workflow.define": "./src/interruptible.workflow.define.ts",
+    "./interruptible.workflow.live": "./src/interruptible.workflow.live.ts",
+    "./idempotent-run.workflow.define": "./src/idempotent-run.workflow.define.ts",
+    "./idempotent-run.workflow.live": "./src/idempotent-run.workflow.live.ts",
+    "./module": "./src/module.ts"
+  },
+  "dependencies": {
+    "effect": "4.0.0-beta.62"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "typescript": "^5.7.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  }
+}

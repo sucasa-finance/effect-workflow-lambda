@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:17
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: ewf_sqs_postgres
+      POSTGRES_USER: workflow
+      POSTGRES_PASSWORD: workflow
+    volumes:
+      - ./migrations/postgres:/docker-entrypoint-initdb.d
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U workflow"]
+      interval: 5s
+      retries: 10
+
+  floci:
+    image: floci/floci:1.5.30
+    ports:
+      - "4568:4566"
+    environment:
+      - FLOCI_HOSTNAME=floci
+      - FLOCI_BASE_URL=http://floci:4566
+      - LAMBDA_DOCKER_NETWORK=example-sqs-postgres_default
+      - LAMBDA_DOCKER_FLAGS=-e PG_HOST=postgres -e PG_PORT=5432
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:4566/_floci/health"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  pg_data:

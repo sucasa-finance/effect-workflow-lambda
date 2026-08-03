@@ -1,0 +1,36 @@
+services:
+  mysql:
+    image: mysql:8.4
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: workflow
+      MYSQL_DATABASE: ewf_sqs_mysql
+      MYSQL_USER: workflow
+      MYSQL_PASSWORD: workflow
+    volumes:
+      - ./src/platform/database/migrations/mysql:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 10
+
+  floci:
+    image: floci/floci:1.5.30
+    ports:
+      - "4570:4566"
+    environment:
+      - FLOCI_HOSTNAME=floci
+      - FLOCI_BASE_URL=http://floci:4566
+      - LAMBDA_DOCKER_NETWORK=example-sqs-mysql_default
+      - LAMBDA_DOCKER_FLAGS=-e MYSQL_HOST=mysql -e MYSQL_PORT=3306
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:4566/_floci/health"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  mysql_data:
