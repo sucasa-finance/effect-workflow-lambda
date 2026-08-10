@@ -1,0 +1,69 @@
+tsconfig.json
+  s_3f06f42a145fd6::t_095f960ad25a68 16-18
+packages/engine/tsconfig.build.json
+  s_3f06f42a145fd6::t_6f36a286052f35 1,3,5-6,8-9,12
+  s_3f06f42a145fd6::t_6dbeba581853f7 2,4,7,10-11
+apps/example-sqs-redis/src/platform/database/client.ts
+  s_3f06f42a145fd6::t_32abeadfc1a53b 10
+packages/engine/tsconfig.json
+  s_3f06f42a145fd6::t_6df043e2fcfa59 10,13,18
+packages/engine/package.json
+  s_3f06f42a145fd6::t_bd2e8ca02df1bc 118
+  s_3f06f42a145fd6::t_2c0da2f7bf4c1c 116-117
+  s_3f06f42a145fd6::t_979724d82751e3 2,4-5,7-33,35-95,97-103,106-107,111,119
+.gitignore
+  s_3f06f42a145fd6::t_f5853e1d2dbddb 4-5
+  s_3f06f42a145fd6::t_5d62a1f1c8192b 6-8
+packages/engine/README.md
+  s_3f06f42a145fd6::t_c4d1081dd30739 1-65
+apps/example-sqs-postgres/package.json
+  s_3f06f42a145fd6::t_9c3bbed3546163 16
+apps/example-sqs-mysql/package.json
+  s_3f06f42a145fd6::t_9c3bbed3546163 16
+packages/engine/tsconfig.test.json
+  s_3f06f42a145fd6::t_f3859a870ccb7b 1-12
+packages/engine/src/handler/sqs/Handler.ts
+  s_3f06f42a145fd6::t_cc8f1c1d16b799 25,28
+packages/engine/LICENSE
+  s_3f06f42a145fd6::t_979724d82751e3 1-21
+apps/example-sqs-mysql/src/platform/modules.ts
+  s_3f06f42a145fd6::t_8cdd8bd88e6ae5 1
+apps/example-sqs-redis/src/platform/lambda/sqs.lambda.ts
+  s_3f06f42a145fd6::t_095f960ad25a68 2-3
+apps/example-sqs-postgres/src/platform/lambda/sqs.lambda.ts
+  s_3f06f42a145fd6::t_095f960ad25a68 2-3
+apps/example-sqs-mysql/src/platform/lambda/sqs.lambda.ts
+  s_3f06f42a145fd6::t_095f960ad25a68 2-3
+apps/example-sqs-postgres/src/platform/lambda/http.lambda.ts
+  s_3f06f42a145fd6::t_095f960ad25a68 7-8
+apps/example-sqs-mysql/src/platform/lambda/http.lambda.ts
+  s_3f06f42a145fd6::t_095f960ad25a68 7-8
+apps/example-sqs-redis/package.json
+  s_3f06f42a145fd6::t_f210ef3ca0d0ab 16
+apps/example-sqs-redis/src/platform/modules.ts
+  s_3f06f42a145fd6::t_8cdd8bd88e6ae5 1
+apps/example-sqs-postgres/src/platform/modules.ts
+  s_3f06f42a145fd6::t_8cdd8bd88e6ae5 1
+apps/example-sqs-redis/src/platform/lambda/http.lambda.ts
+  s_3f06f42a145fd6::t_095f960ad25a68 7-8
+pnpm-lock.yaml
+  s_3f06f42a145fd6::t_d802f0b5338d65 42-44,76-78,107-109,122,138-140
+package.json
+  s_3f06f42a145fd6::t_1b460b73a7f680 11-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "cafc4c3aaa45e5f3e531bb6fc93ce7c2b6a6cedb",
+  "prompts": {},
+  "sessions": {
+    "s_3f06f42a145fd6": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "10d197d3-f694-480c-b7f5-ff4a38fbdf58",
+        "model": "grok-4.5"
+      },
+      "human_author": "Kevin <kevin@sucasa.com.au>"
+    }
+  }
+}
