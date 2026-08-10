@@ -60,15 +60,15 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          if [ -z "$NODE_AUTH_TOKEN" ]; then
-            echo "::error::NPM_TOKEN secret is not set"
-            exit 1
-          fi
-
           VERSION="$(node -p "require('./package.json').version")"
           if npm view "effect-workflow-lambda@${VERSION}" version >/dev/null 2>&1; then
             echo "effect-workflow-lambda@${VERSION} already on npm — skipping publish"
             exit 0
+          fi
+
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "::error::NPM_TOKEN secret is not set"
+            exit 1
           fi
 
           npm publish --access public
