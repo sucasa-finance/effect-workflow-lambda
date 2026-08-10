@@ -13,9 +13,9 @@
   "references": [
     { "path": "packages/engine" },
     { "path": "packages/workflows" },
-    { "path": "apps/sqs-mysql" },
-    { "path": "apps/sqs-redis" },
-    { "path": "apps/sqs-postgres" }
+    { "path": "apps/example-sqs-mysql" },
+    { "path": "apps/example-sqs-redis" },
+    { "path": "apps/example-sqs-postgres" }
   ],
   "include": []
 }

@@ -22,10 +22,10 @@ const registerModules = (
     }
   });
 
-export const handler = (config: {
+export const handler = <E>(config: {
   readonly queueUrl: string;
   readonly modules: ReadonlyArray<WorkflowModule>;
-  readonly layer: Layer.Layer<SQSService | EffectWorkflowStorage>;
+  readonly layer: Layer.Layer<SQSService | EffectWorkflowStorage, E>;
 }) => {
   const makeProcessMessage = Effect.gen(function* () {
     const send = yield* makeSqsSend(config.queueUrl);

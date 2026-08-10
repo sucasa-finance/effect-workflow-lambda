@@ -4,8 +4,8 @@ import * as HttpRouter from 'effect/unstable/http/HttpRouter';
 import * as HttpApiBuilder from 'effect/unstable/httpapi/HttpApiBuilder';
 import { LambdaHandler } from '@effect-aws/lambda';
 
-import { layer as sqsEngineLayer } from '@effect-workflow-engine/engine/handler/sqs/Layer';
-import { EffectWorkflowStoragePgLive } from '@effect-workflow-engine/engine/PostgresWorkflowStorage.live';
+import { layer as sqsEngineLayer } from 'effect-workflow-lambda/handler/sqs/Layer';
+import { EffectWorkflowStoragePgLive } from 'effect-workflow-lambda/PostgresWorkflowStorage.live';
 
 import { DatabaseLive } from '../database/client.js';
 import { SqsLive, queueUrl } from '../sqs/client.js';

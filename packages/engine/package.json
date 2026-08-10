@@ -1,38 +1,122 @@
 {
-  "name": "@effect-workflow-engine/engine",
+  "name": "effect-workflow-lambda",
   "version": "0.1.0",
-  "private": true,
+  "description": "Queue-driven, replay-based WorkflowEngine for Effect on AWS Lambda + SQS",
+  "license": "MIT",
   "type": "module",
-  "exports": {
-    "./LambdaWorkflowEngine": "./src/LambdaWorkflowEngine.ts",
-    "./LambdaWorkflowEngine.live": "./src/LambdaWorkflowEngine.live.ts",
-    "./LambdaWorkflowEngine.local": "./src/LambdaWorkflowEngine.local.ts",
-    "./WorkflowStorage": "./src/WorkflowStorage.ts",
-    "./MemoryWorkflowStorage.live": "./src/MemoryWorkflowStorage.live.ts",
-    "./MySqlWorkflowStorage.live": "./src/MySqlWorkflowStorage.live.ts",
-    "./PostgresWorkflowStorage.live": "./src/PostgresWorkflowStorage.live.ts",
-    "./RedisWorkflowStorage.live": "./src/RedisWorkflowStorage.live.ts",
-    "./WorkflowModule": "./src/WorkflowModule.ts",
-    "./handler/sqs/Send": "./src/handler/sqs/Send.ts",
-    "./handler/sqs/Handler": "./src/handler/sqs/Handler.ts",
-    "./handler/sqs/Layer": "./src/handler/sqs/Layer.ts"
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sucasa-finance/effect-workflow-lambda.git",
+    "directory": "packages/engine"
   },
-  "dependencies": {
-    "@effect-aws/client-sqs": "2.0.0-beta.4",
-    "@effect-aws/lambda": "2.0.0-beta.4",
-    "@effect/sql-mysql2": "4.0.0-beta.62",
-    "@effect/sql-pg": "4.0.0-beta.62",
-    "effect": "4.0.0-beta.62"
+  "bugs": {
+    "url": "https://github.com/sucasa-finance/effect-workflow-lambda/issues"
+  },
+  "homepage": "https://github.com/sucasa-finance/effect-workflow-lambda#readme",
+  "keywords": [
+    "effect",
+    "workflow",
+    "lambda",
+    "sqs",
+    "aws",
+    "durable-execution"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    "./LambdaWorkflowEngine": {
+      "types": "./dist/LambdaWorkflowEngine.d.ts",
+      "import": "./dist/LambdaWorkflowEngine.js",
+      "default": "./dist/LambdaWorkflowEngine.js"
+    },
+    "./LambdaWorkflowEngine.live": {
+      "types": "./dist/LambdaWorkflowEngine.live.d.ts",
+      "import": "./dist/LambdaWorkflowEngine.live.js",
+      "default": "./dist/LambdaWorkflowEngine.live.js"
+    },
+    "./LambdaWorkflowEngine.local": {
+      "types": "./dist/LambdaWorkflowEngine.local.d.ts",
+      "import": "./dist/LambdaWorkflowEngine.local.js",
+      "default": "./dist/LambdaWorkflowEngine.local.js"
+    },
+    "./WorkflowStorage": {
+      "types": "./dist/WorkflowStorage.d.ts",
+      "import": "./dist/WorkflowStorage.js",
+      "default": "./dist/WorkflowStorage.js"
+    },
+    "./MemoryWorkflowStorage.live": {
+      "types": "./dist/MemoryWorkflowStorage.live.d.ts",
+      "import": "./dist/MemoryWorkflowStorage.live.js",
+      "default": "./dist/MemoryWorkflowStorage.live.js"
+    },
+    "./MySqlWorkflowStorage.live": {
+      "types": "./dist/MySqlWorkflowStorage.live.d.ts",
+      "import": "./dist/MySqlWorkflowStorage.live.js",
+      "default": "./dist/MySqlWorkflowStorage.live.js"
+    },
+    "./PostgresWorkflowStorage.live": {
+      "types": "./dist/PostgresWorkflowStorage.live.d.ts",
+      "import": "./dist/PostgresWorkflowStorage.live.js",
+      "default": "./dist/PostgresWorkflowStorage.live.js"
+    },
+    "./RedisWorkflowStorage.live": {
+      "types": "./dist/RedisWorkflowStorage.live.d.ts",
+      "import": "./dist/RedisWorkflowStorage.live.js",
+      "default": "./dist/RedisWorkflowStorage.live.js"
+    },
+    "./WorkflowModule": {
+      "types": "./dist/WorkflowModule.d.ts",
+      "import": "./dist/WorkflowModule.js",
+      "default": "./dist/WorkflowModule.js"
+    },
+    "./handler/sqs/Send": {
+      "types": "./dist/handler/sqs/Send.d.ts",
+      "import": "./dist/handler/sqs/Send.js",
+      "default": "./dist/handler/sqs/Send.js"
+    },
+    "./handler/sqs/Handler": {
+      "types": "./dist/handler/sqs/Handler.d.ts",
+      "import": "./dist/handler/sqs/Handler.js",
+      "default": "./dist/handler/sqs/Handler.js"
+    },
+    "./handler/sqs/Layer": {
+      "types": "./dist/handler/sqs/Layer.d.ts",
+      "import": "./dist/handler/sqs/Layer.js",
+      "default": "./dist/handler/sqs/Layer.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@effect-aws/client-sqs": "^2.0.0-beta.4",
+    "@effect-aws/lambda": "^2.0.0-beta.4",
+    "effect": "^4.0.0-beta.62"
   },
   "devDependencies": {
+    "@effect-aws/client-sqs": "2.0.0-beta.4",
+    "@effect-aws/lambda": "2.0.0-beta.4",
     "@effect-workflow-engine/workflows": "workspace:*",
     "@effect/vitest": "4.0.0-beta.62",
     "@types/node": "^26.1.2",
+    "effect": "4.0.0-beta.62",
     "typescript": "^5.7.0",
     "vitest": "^3.0.0"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc -b tsconfig.json && tsc --noEmit -p tsconfig.test.json",
+    "prepublishOnly": "pnpm run build",
     "test": "vitest run",
     "test:watch": "vitest"
   }

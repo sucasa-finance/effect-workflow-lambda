@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "declarationMap": true,
+    "sourceMap": true,
+    "tsBuildInfoFile": null
+  },
+  "include": ["src"],
+  "exclude": ["dist", "test"],
+  "references": []
+}
