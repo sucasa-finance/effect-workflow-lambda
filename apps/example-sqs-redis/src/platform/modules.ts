@@ -1,4 +1,4 @@
-import type { WorkflowModule } from '@effect-workflow-engine/engine/WorkflowModule';
+import type { WorkflowModule } from '@effect-workflow-engine/workflows/module';
 import { GreetModule } from '@effect-workflow-engine/workflows/greet.workflow.live';
 import { DuplicateExecuteModule } from '@effect-workflow-engine/workflows/duplicate-execute.workflow.live';
 import { InterruptActivityModule } from '@effect-workflow-engine/workflows/interrupt-activity.workflow.live';

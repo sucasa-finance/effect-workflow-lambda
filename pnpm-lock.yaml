@@ -24,9 +24,6 @@ importers:
       '@effect-aws/lambda':
         specifier: 2.0.0-beta.4
         version: 2.0.0-beta.4(@effect/platform-node-shared@4.0.0-beta.62(effect@4.0.0-beta.62))(effect@4.0.0-beta.62)
-      '@effect-workflow-engine/engine':
-        specifier: workspace:*
-        version: link:../../packages/engine
       '@effect-workflow-engine/workflows':
         specifier: workspace:*
         version: link:../../packages/workflows
@@ -42,6 +39,9 @@ importers:
       effect:
         specifier: 4.0.0-beta.62
         version: 4.0.0-beta.62
+      effect-workflow-lambda:
+        specifier: workspace:*
+        version: link:../../packages/engine
     devDependencies:
       '@types/node':
         specifier: ^26.1.2
@@ -58,9 +58,6 @@ importers:
       '@effect-aws/lambda':
         specifier: 2.0.0-beta.4
         version: 2.0.0-beta.4(@effect/platform-node-shared@4.0.0-beta.62(effect@4.0.0-beta.62))(effect@4.0.0-beta.62)
-      '@effect-workflow-engine/engine':
-        specifier: workspace:*
-        version: link:../../packages/engine
       '@effect-workflow-engine/workflows':
         specifier: workspace:*
         version: link:../../packages/workflows
@@ -76,6 +73,9 @@ importers:
       effect:
         specifier: 4.0.0-beta.62
         version: 4.0.0-beta.62
+      effect-workflow-lambda:
+        specifier: workspace:*
+        version: link:../../packages/engine
     devDependencies:
       '@types/node':
         specifier: ^26.1.2
@@ -92,9 +92,6 @@ importers:
       '@effect-aws/lambda':
         specifier: 2.0.0-beta.4
         version: 2.0.0-beta.4(@effect/platform-node-shared@4.0.0-beta.62(effect@4.0.0-beta.62))(effect@4.0.0-beta.62)
-      '@effect-workflow-engine/engine':
-        specifier: workspace:*
-        version: link:../../packages/engine
       '@effect-workflow-engine/workflows':
         specifier: workspace:*
         version: link:../../packages/workflows
@@ -107,6 +104,9 @@ importers:
       effect:
         specifier: 4.0.0-beta.62
         version: 4.0.0-beta.62
+      effect-workflow-lambda:
+        specifier: workspace:*
+        version: link:../../packages/engine
       ioredis:
         specifier: ^5.6.1
         version: 5.11.1
@@ -119,23 +119,13 @@ importers:
         version: 5.9.3
 
   packages/engine:
-    dependencies:
+    devDependencies:
       '@effect-aws/client-sqs':
         specifier: 2.0.0-beta.4
         version: 2.0.0-beta.4(effect@4.0.0-beta.62)
       '@effect-aws/lambda':
         specifier: 2.0.0-beta.4
         version: 2.0.0-beta.4(@effect/platform-node-shared@4.0.0-beta.62(effect@4.0.0-beta.62))(effect@4.0.0-beta.62)
-      '@effect/sql-mysql2':
-        specifier: 4.0.0-beta.62
-        version: 4.0.0-beta.62(@types/node@26.1.2)(effect@4.0.0-beta.62)
-      '@effect/sql-pg':
-        specifier: 4.0.0-beta.62
-        version: 4.0.0-beta.62(effect@4.0.0-beta.62)
-      effect:
-        specifier: 4.0.0-beta.62
-        version: 4.0.0-beta.62
-    devDependencies:
       '@effect-workflow-engine/workflows':
         specifier: workspace:*
         version: link:../workflows
@@ -145,6 +135,9 @@ importers:
       '@types/node':
         specifier: ^26.1.2
         version: 26.1.2
+      effect:
+        specifier: 4.0.0-beta.62
+        version: 4.0.0-beta.62
       typescript:
         specifier: ^5.7.0
         version: 5.9.3

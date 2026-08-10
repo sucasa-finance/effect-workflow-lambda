@@ -7,7 +7,7 @@ const port = Number(process.env.REDIS_PORT ?? '6380');
 
 const makeRedis = Effect.gen(function* () {
   const client = new RedisClient({ host, port, lazyConnect: true });
-  yield* Effect.tryPromise(() => client.connect());
+  yield* Effect.orDie(Effect.tryPromise(() => client.connect()));
   yield* Effect.addFinalizer(() => Effect.sync(() => client.disconnect()));
 
   return yield* Redis.make({
