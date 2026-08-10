@@ -60,6 +60,10 @@ export const handler = sqsHandler({
 
 Built against Effect v4 beta (`effect/unstable/workflow`). APIs may change as Effect stabilizes the workflow module.
 
+## Releases
+
+See [RELEASING.md](../../RELEASING.md). Pushing a `v*` tag publishes this package via GitHub Actions.
+
 ## License
 
 MIT

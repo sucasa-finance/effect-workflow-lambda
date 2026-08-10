@@ -1,0 +1,74 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish effect-workflow-lambda
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify tag matches package version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG="$(node -p "require('./packages/engine/package.json').version")"
+          if [ "$TAG" != "$PKG" ]; then
+            echo "::error::Tag v${TAG} does not match packages/engine version ${PKG}"
+            exit 1
+          fi
+          echo "Publishing effect-workflow-lambda@${PKG} from tag v${TAG}"
+
+      - name: Build
+        run: pnpm --filter effect-workflow-lambda run build
+
+      - name: Typecheck
+        run: pnpm --filter effect-workflow-lambda run typecheck
+
+      - name: Test
+        env:
+          SAO_ALLOW_TESTS: "1"
+        run: pnpm --filter effect-workflow-lambda run test
+
+      - name: Publish to npm
+        working-directory: packages/engine
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "::error::NPM_TOKEN secret is not set"
+            exit 1
+          fi
+
+          VERSION="$(node -p "require('./package.json').version")"
+          if npm view "effect-workflow-lambda@${VERSION}" version >/dev/null 2>&1; then
+            echo "effect-workflow-lambda@${VERSION} already on npm — skipping publish"
+            exit 0
+          fi
+
+          npm publish --access public
