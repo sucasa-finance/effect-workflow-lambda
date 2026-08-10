@@ -1,0 +1,23 @@
+.github/workflows/publish.yml
+  s_3f06f42a145fd6::t_1012f6192e873c 1-74
+RELEASING.md
+  s_3f06f42a145fd6::t_06a1c24f4e9503 1-32
+packages/engine/README.md
+  s_3f06f42a145fd6::t_55668b95e07548 63-66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "7b8d1b5249aa09e905ec2bcc2da300b52e62e6db",
+  "prompts": {},
+  "sessions": {
+    "s_3f06f42a145fd6": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "10d197d3-f694-480c-b7f5-ff4a38fbdf58",
+        "model": "grok-4.5"
+      },
+      "human_author": "Kevin <kevin@sucasa.com.au>"
+    }
+  }
+}
