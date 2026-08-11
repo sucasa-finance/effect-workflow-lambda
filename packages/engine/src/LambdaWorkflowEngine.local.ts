@@ -11,6 +11,7 @@ export { EffectWorkflowMessageSchema } from './LambdaWorkflowEngine.js';
 export type { EffectWorkflowMessage } from './LambdaWorkflowEngine.js';
 
 const makeLocal = Effect.gen(function* () {
+  const scope = yield* Effect.scope;
   const storage = yield* EffectWorkflowStorage;
 
   const factory = yield* PersistedQueue.PersistedQueueFactory;
@@ -26,11 +27,10 @@ const makeLocal = Effect.gen(function* () {
     if (options?.delay === undefined || !Duration.isPositive(options.delay)) {
       return enqueue;
     }
-    return Effect.sleep(options.delay).pipe(
-      Effect.andThen(enqueue),
-      Effect.forkDetach({startImmediately: true}),
-      Effect.asVoid,
-    );
+    const delay = options.delay;
+    return Effect.sync(() => {
+      Effect.runFork(Effect.sleep(delay).pipe(Effect.andThen(enqueue)));
+    });
   };
 
   const { engine, processMessage } = yield* make(send);
@@ -42,7 +42,7 @@ const makeLocal = Effect.gen(function* () {
         Effect.catchCause(cause => Effect.logError('LambdaWorkflowEngine pump failure', cause)),
       ),
     )
-    .pipe(Effect.forever, Effect.forkDetach({startImmediately: true}));
+    .pipe(Effect.forever, Effect.forkIn(scope, {startImmediately: true}));
 
   return { engine, storage };
 });
