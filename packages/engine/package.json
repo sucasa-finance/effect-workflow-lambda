@@ -1,6 +1,6 @@
 {
   "name": "effect-workflow-lambda",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Queue-driven, replay-based WorkflowEngine for Effect on AWS Lambda + SQS",
   "license": "MIT",
   "type": "module",
