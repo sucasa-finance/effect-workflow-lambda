@@ -29,7 +29,7 @@ const makeLocal = Effect.gen(function* () {
     }
     const delay = options.delay;
     return Effect.sync(() => {
-      Effect.runFork(Effect.sleep(delay).pipe(Effect.andThen(enqueue)));
+      globalThis.setTimeout(() => Effect.runFork(enqueue), Duration.toMillis(delay));
     });
   };
 
