@@ -1,0 +1,47 @@
+packages/engine/src/LambdaWorkflowEngine.live.ts
+  s_347a3c01b20116::t_b991997a6abe90 35
+packages/workflows/src/interruptible.workflow.define.ts
+  s_347a3c01b20116::t_5e97b57ff1ef67 4
+packages/workflows/src/approval.workflow.define.ts
+  s_347a3c01b20116::t_9af51d104a214c 6
+packages/workflows/src/interrupt-activity.workflow.define.ts
+  s_347a3c01b20116::t_c9ed08a84ea7ac 4
+packages/workflows/src/typed-failure.workflow.define.ts
+  s_347a3c01b20116::t_bdb1e751cfe6ae 12
+packages/workflows/src/greet.workflow.define.ts
+  s_347a3c01b20116::t_af96feff77b758 24
+packages/workflows/src/crash.workflow.define.ts
+  s_347a3c01b20116::t_97207c749a3276 6,12
+packages/workflows/package.json
+  s_347a3c01b20116::t_25fc6c92d35f8c 32
+packages/workflows/src/multi-signal.workflow.define.ts
+  s_347a3c01b20116::t_e7a47a241c66df 4
+packages/engine/package.json
+  s_347a3c01b20116::t_4a2be8236317d6 3,103,109,111
+packages/workflows/src/idempotent-run.workflow.define.ts
+  s_347a3c01b20116::t_f7d2b9abea8804 4
+packages/workflows/src/fan-out.workflow.define.ts
+  s_347a3c01b20116::t_e108daa3977a84 4
+packages/workflows/src/large-payload.workflow.define.ts
+  s_347a3c01b20116::t_0d88227a98f853 4
+packages/workflows/src/duplicate-execute.workflow.define.ts
+  s_347a3c01b20116::t_449dea72d38ab3 4
+pnpm-lock.yaml
+  s_347a3c01b20116::t_c4e004dd30df61 125,128,133-134,139-140,151-152,263-264,266,1091-1093,1222-1225,1444-1446,1877-1880,2183-2188,2195-2201,2209-2213,2219-2227,2255,2257,3024-3036,3188-3189,3381-3384,3848-3849
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "70b02d8040b88dd1f54519cd291d9286bcd91084",
+  "prompts": {},
+  "sessions": {
+    "s_347a3c01b20116": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "e74296c6-9f77-4325-a136-ab65c27b1e16",
+        "model": "grok-4.5"
+      },
+      "human_author": "Kevin <kevin@sucasa.com.au>"
+    }
+  }
+}
