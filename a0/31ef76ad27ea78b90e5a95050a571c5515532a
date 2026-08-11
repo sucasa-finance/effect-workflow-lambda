@@ -1,0 +1,22 @@
+packages/engine/src/LambdaWorkflowEngine.local.ts
+  s_347a3c01b20116::t_9d10a4544d59ba 14,31,33,45
+  s_347a3c01b20116::t_686c8b2523e03e 30,32
+packages/engine/package.json
+  s_347a3c01b20116::t_d27ad72c9dc638 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "a031ef76ad27ea78b90e5a95050a571c5515532a",
+  "prompts": {},
+  "sessions": {
+    "s_347a3c01b20116": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "e74296c6-9f77-4325-a136-ab65c27b1e16",
+        "model": "grok-4.5"
+      },
+      "human_author": "Kevin <kevin@sucasa.com.au>"
+    }
+  }
+}
