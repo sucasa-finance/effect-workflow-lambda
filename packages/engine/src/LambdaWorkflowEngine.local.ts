@@ -26,7 +26,11 @@ const makeLocal = Effect.gen(function* () {
     if (options?.delay === undefined || !Duration.isPositive(options.delay)) {
       return enqueue;
     }
-    return Effect.sleep(options.delay).pipe(Effect.andThen(enqueue), Effect.forkDetach, Effect.asVoid);
+    return Effect.sleep(options.delay).pipe(
+      Effect.andThen(enqueue),
+      Effect.forkDetach({startImmediately: true}),
+      Effect.asVoid,
+    );
   };
 
   const { engine, processMessage } = yield* make(send);
@@ -38,7 +42,7 @@ const makeLocal = Effect.gen(function* () {
         Effect.catchCause(cause => Effect.logError('LambdaWorkflowEngine pump failure', cause)),
       ),
     )
-    .pipe(Effect.forever, Effect.forkDetach);
+    .pipe(Effect.forever, Effect.forkDetach({startImmediately: true}));
 
   return { engine, storage };
 });

@@ -161,7 +161,7 @@ export const make = (send: Send) =>
       register: (workflow, execute) =>
         Effect.sync(() => {
           const workflowWithProps = workflow as Workflow.AnyWithProps;
-          registrations.set(workflow.name, {
+          registrations.set(workflow._tag, {
             workflow: workflowWithProps,
             execute: execute as Registration['execute'],
             payloadJson: Schema.toCodecJson(workflowWithProps.payloadSchema),
@@ -176,7 +176,7 @@ export const make = (send: Send) =>
 
       execute: (workflow, options) =>
         Effect.gen(function* () {
-          const registration = yield* registrationFor(workflow.name);
+          const registration = yield* registrationFor(workflow._tag);
           const record = yield* storage.getExecution(options.executionId);
 
           if (Option.isNone(record)) {
@@ -184,7 +184,7 @@ export const make = (send: Send) =>
             if (
               yield* storage.createExecution({
                 executionId: options.executionId,
-                workflowName: workflow.name,
+                workflowName: workflow._tag,
                 payload,
               })
             ) {
@@ -205,7 +205,7 @@ export const make = (send: Send) =>
         }) as never,
 
       poll: Effect.fnUntraced(function* (workflow, executionId) {
-        const registration = yield* registrationFor(workflow.name);
+        const registration = yield* registrationFor(workflow._tag);
         const record = yield* storage.getExecution(executionId);
         const result = Option.flatMap(record, execution => execution.result);
         if (Option.isNone(result)) {
