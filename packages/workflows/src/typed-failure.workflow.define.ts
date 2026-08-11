@@ -9,8 +9,7 @@ export class PaymentDeclinedError extends Schema.TaggedErrorClass<PaymentDecline
   }
 }
 
-export const TypedFailureWorkflow = Workflow.make({
-  name: 'TypedFailure',
+export const TypedFailureWorkflow = Workflow.make('TypedFailure', {
   payload: {id: Schema.String, shouldFail: Schema.Boolean},
   success: Schema.String,
   error: PaymentDeclinedError,

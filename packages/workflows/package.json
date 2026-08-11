@@ -29,7 +29,7 @@
     "./module": "./src/module.ts"
   },
   "dependencies": {
-    "effect": "4.0.0-beta.62"
+    "effect": "4.0.0-beta.102"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",

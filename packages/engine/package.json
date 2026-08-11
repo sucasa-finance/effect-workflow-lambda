@@ -1,6 +1,6 @@
 {
   "name": "effect-workflow-lambda",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Queue-driven, replay-based WorkflowEngine for Effect on AWS Lambda + SQS",
   "license": "MIT",
   "type": "module",
@@ -100,15 +100,15 @@
   "peerDependencies": {
     "@effect-aws/client-sqs": "^2.0.0-beta.4",
     "@effect-aws/lambda": "^2.0.0-beta.4",
-    "effect": "^4.0.0-beta.62"
+    "effect": "^4.0.0-beta.102"
   },
   "devDependencies": {
     "@effect-aws/client-sqs": "2.0.0-beta.4",
     "@effect-aws/lambda": "2.0.0-beta.4",
     "@effect-workflow-engine/workflows": "workspace:*",
-    "@effect/vitest": "4.0.0-beta.62",
+    "@effect/vitest": "4.0.0-beta.102",
     "@types/node": "^26.1.2",
-    "effect": "4.0.0-beta.62",
+    "effect": "4.0.0-beta.102",
     "typescript": "^5.7.0",
     "vitest": "^3.0.0"
   },

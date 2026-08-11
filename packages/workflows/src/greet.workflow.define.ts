@@ -21,8 +21,7 @@ export class GreetBlankNameError extends Schema.TaggedErrorClass<GreetBlankNameE
   }
 }
 
-export const GreetWorkflow = Workflow.make({
-  name: 'Greet',
+export const GreetWorkflow = Workflow.make('Greet', {
   payload: GreetInputSchema.fields,
   success: Schema.Struct({greeting: Schema.String, farewell: Schema.String}),
   error: Schema.Union([GreetBlankNameError, SalutationLookupError]),
