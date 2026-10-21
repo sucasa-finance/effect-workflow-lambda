@@ -84,6 +84,11 @@ const makeEffectWorkflowStoragePg = Effect.gen(function* () {
             VALUES (${activityId}, NULL)`,
       ),
 
+    unmarkActivityEnqueued: activityId =>
+      sql`DELETE FROM effect_workflow_activities
+          WHERE activity_id = ${activityId}
+            AND exit_value IS NULL`.pipe(Effect.asVoid, Effect.orDie),
+
     getDeferred: (executionId, deferredName) =>
       sql<{exit_value: unknown}>`SELECT exit_value
          FROM effect_workflow_deferreds

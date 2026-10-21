@@ -32,7 +32,7 @@ const makeSqsSend = Effect.gen(function* () {
 
     yield* Effect.orDie(
       sqs.sendMessage({
-        QueueUrl: yield* Effect.orDie(EffectWorkflowQueueUrlConfig.asEffect()),
+        QueueUrl: yield* Effect.orDie(EffectWorkflowQueueUrlConfig),
         MessageBody: yield* Effect.orDie(encodeMessage(message)),
         DelaySeconds: delaySeconds,
       }),

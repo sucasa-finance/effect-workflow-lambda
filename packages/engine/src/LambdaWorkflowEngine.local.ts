@@ -1,4 +1,4 @@
-import { Context, Duration, Effect, Layer } from 'effect';
+import { Context, Duration, Effect, Layer, Scope } from 'effect';
 import * as KeyValueStore from 'effect/unstable/persistence/KeyValueStore';
 import * as PersistedQueue from 'effect/unstable/persistence/PersistedQueue';
 import * as WorkflowEngine from 'effect/unstable/workflow/WorkflowEngine';
@@ -11,7 +11,7 @@ export { EffectWorkflowMessageSchema } from './LambdaWorkflowEngine.js';
 export type { EffectWorkflowMessage } from './LambdaWorkflowEngine.js';
 
 const makeLocal = Effect.gen(function* () {
-  const scope = yield* Effect.scope;
+  const scope = Scope.makeUnsafe();
   const storage = yield* EffectWorkflowStorage;
 
   const factory = yield* PersistedQueue.PersistedQueueFactory;
@@ -27,7 +27,11 @@ const makeLocal = Effect.gen(function* () {
     if (options?.delay === undefined || !Duration.isPositive(options.delay)) {
       return enqueue;
     }
-    return Effect.sleep(options.delay).pipe(Effect.andThen(enqueue), Effect.forkIn(scope), Effect.asVoid);
+    return Effect.sleep(options.delay).pipe(
+      Effect.andThen(enqueue),
+      Effect.forkIn(scope, {startImmediately: true}),
+      Effect.asVoid,
+    );
   };
 
   const { engine, processMessage } = yield* make(send);
@@ -39,7 +43,7 @@ const makeLocal = Effect.gen(function* () {
         Effect.catchCause(cause => Effect.logError('LambdaWorkflowEngine pump failure', cause)),
       ),
     )
-    .pipe(Effect.forever, Effect.forkIn(scope));
+    .pipe(Effect.forever, Effect.forkIn(scope, {startImmediately: true}));
 
   return { engine, storage };
 });

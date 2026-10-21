@@ -3,15 +3,13 @@ import {Workflow} from 'effect/unstable/workflow';
 
 export const CrashInputSchema = Schema.Struct({name: Schema.String, failUntilIso: Schema.String});
 
-export const WorkflowCrashWorkflow = Workflow.make({
-  name: 'WorkflowCrash',
+export const WorkflowCrashWorkflow = Workflow.make('WorkflowCrash', {
   payload: CrashInputSchema.fields,
   success: Schema.String,
   idempotencyKey: ({name}) => name,
 });
 
-export const ActivityCrashWorkflow = Workflow.make({
-  name: 'ActivityCrash',
+export const ActivityCrashWorkflow = Workflow.make('ActivityCrash', {
   payload: CrashInputSchema.fields,
   success: Schema.String,
   idempotencyKey: ({name}) => name,

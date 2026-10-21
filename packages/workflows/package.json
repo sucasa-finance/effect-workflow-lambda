@@ -18,7 +18,7 @@
     "./multi-signal.workflow.live": "./src/multi-signal.workflow.live.ts",
     "./fan-out.workflow.define": "./src/fan-out.workflow.define.ts",
     "./fan-out.workflow.live": "./src/fan-out.workflow.live.ts",
-"./large-payload.workflow.define": "./src/large-payload.workflow.define.ts",
+    "./large-payload.workflow.define": "./src/large-payload.workflow.define.ts",
     "./large-payload.workflow.live": "./src/large-payload.workflow.live.ts",
     "./typed-failure.workflow.define": "./src/typed-failure.workflow.define.ts",
     "./typed-failure.workflow.live": "./src/typed-failure.workflow.live.ts",
@@ -26,10 +26,12 @@
     "./interruptible.workflow.live": "./src/interruptible.workflow.live.ts",
     "./idempotent-run.workflow.define": "./src/idempotent-run.workflow.define.ts",
     "./idempotent-run.workflow.live": "./src/idempotent-run.workflow.live.ts",
+    "./dependent-activities.workflow.define": "./src/dependent-activities.workflow.define.ts",
+    "./dependent-activities.workflow.live": "./src/dependent-activities.workflow.live.ts",
     "./module": "./src/module.ts"
   },
   "dependencies": {
-    "effect": "4.0.0-beta.62"
+    "effect": "4.0.0-beta.102"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",

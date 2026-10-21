@@ -36,6 +36,14 @@ export class MessageProcessor extends Context.Service<
   }
 >()('effect-workflow-engine/MessageProcessor') {}
 
+// Deferred exits cross the engine boundary as live `Exit`s whose values are already JSON-encoded by the deferred's
+// schema. Storage and the queue hold JSON, so the `Exit` itself is encoded on the way in and rebuilt on the way out.
+const DeferredExitJson = Schema.toCodecJson(Schema.Exit(Schema.Unknown, Schema.Unknown, Schema.Defect()));
+const encodeDeferredExit = (exit: Exit.Exit<unknown, unknown>) =>
+  Effect.orDie(Schema.encodeUnknownEffect(DeferredExitJson)(exit)) as Effect.Effect<unknown>;
+const decodeDeferredExit = (json: unknown) =>
+  Effect.orDie(Schema.decodeUnknownEffect(DeferredExitJson)(json)) as Effect.Effect<Exit.Exit<unknown, unknown>>;
+
 type Registration = {
   readonly workflow: Workflow.AnyWithProps;
   readonly execute: (payload: object, executionId: string) => Effect.Effect<unknown, unknown>;
@@ -48,7 +56,7 @@ export const make = (send: Send) =>
     const storage = yield* EffectWorkflowStorage;
 
     const registrations = new Map<string, Registration>();
-    const activityTargets = new Map<string, string>();
+    const activityTargets = new Map<string, { readonly activityId: string; reached: boolean }>();
 
     const registrationFor = (workflowName: string) =>
       Effect.suspend(() => {
@@ -88,8 +96,9 @@ export const make = (send: Send) =>
       const instance = WorkflowEngine.WorkflowInstance.initial(registration.workflow, executionId);
       instance.interrupted = record.value.interrupted;
 
-      if (targetActivityId !== undefined) {
-        activityTargets.set(executionId, targetActivityId);
+      const target = targetActivityId === undefined ? undefined : { activityId: targetActivityId, reached: false };
+      if (target !== undefined) {
+        activityTargets.set(executionId, target);
       }
 
       const result = yield* registration.execute(payload as object, executionId).pipe(
@@ -105,6 +114,16 @@ export const make = (send: Send) =>
         Effect.provideService(WorkflowEngine.WorkflowEngine, engine),
         Effect.ensuring(Effect.sync(() => activityTargets.delete(executionId))),
       );
+
+      // A sibling activity can suspend the replay before it reaches the target (e.g. the target waits on a dependency
+      // that settled in this replay). Clear the target's enqueued mark so the next replay that reaches it dispatches
+      // it again; otherwise this message is spent and the activity never runs.
+      if (target !== undefined && !target.reached) {
+        yield* storage.unmarkActivityEnqueued(target.activityId);
+        yield* Effect.logInfo('activity not reached in replay — will dispatch again when reached').pipe(
+          Effect.annotateLogs({ workflowName: record.value.workflowName, executionId, activityId: target.activityId }),
+        );
+      }
 
       if (result._tag === 'Complete') {
         if (Exit.isFailure(result.exit) && Cause.hasDies(result.exit.cause)) {
@@ -161,7 +180,7 @@ export const make = (send: Send) =>
       register: (workflow, execute) =>
         Effect.sync(() => {
           const workflowWithProps = workflow as Workflow.AnyWithProps;
-          registrations.set(workflow.name, {
+          registrations.set(workflow._tag, {
             workflow: workflowWithProps,
             execute: execute as Registration['execute'],
             payloadJson: Schema.toCodecJson(workflowWithProps.payloadSchema),
@@ -176,7 +195,7 @@ export const make = (send: Send) =>
 
       execute: (workflow, options) =>
         Effect.gen(function* () {
-          const registration = yield* registrationFor(workflow.name);
+          const registration = yield* registrationFor(workflow._tag);
           const record = yield* storage.getExecution(options.executionId);
 
           if (Option.isNone(record)) {
@@ -184,7 +203,7 @@ export const make = (send: Send) =>
             if (
               yield* storage.createExecution({
                 executionId: options.executionId,
-                workflowName: workflow.name,
+                workflowName: workflow._tag,
                 payload,
               })
             ) {
@@ -205,7 +224,7 @@ export const make = (send: Send) =>
         }) as never,
 
       poll: Effect.fnUntraced(function* (workflow, executionId) {
-        const registration = yield* registrationFor(workflow.name);
+        const registration = yield* registrationFor(workflow._tag);
         const record = yield* storage.getExecution(executionId);
         const result = Option.flatMap(record, execution => execution.result);
         if (Option.isNone(result)) {
@@ -245,7 +264,9 @@ export const make = (send: Send) =>
           return new Workflow.Complete({ exit: exit as Exit.Exit<unknown, unknown> });
         }
 
-        if (activityTargets.get(instance.executionId) === activityId) {
+        const target = activityTargets.get(instance.executionId);
+        if (target?.activityId === activityId) {
+          target.reached = true;
           yield* Effect.logInfo('activity executing').pipe(
             Effect.annotateLogs({ activityId, activityName: activity.name, attempt }),
           );
@@ -295,12 +316,19 @@ export const make = (send: Send) =>
         Effect.gen(function* () {
           const instance = yield* WorkflowEngine.WorkflowInstance;
           const stored = yield* storage.getDeferred(instance.executionId, deferred.name);
-          return stored as Option.Option<Exit.Exit<unknown, unknown>>;
+          if (Option.isNone(stored)) {
+            return Option.none();
+          }
+          return Option.some(yield* decodeDeferredExit(stored.value));
         }),
 
       deferredDone: options =>
         Effect.gen(function* () {
-          const newlyDone = yield* storage.setDeferred(options.executionId, options.deferredName, options.exit);
+          const newlyDone = yield* storage.setDeferred(
+            options.executionId,
+            options.deferredName,
+            yield* encodeDeferredExit(options.exit),
+          );
           if (newlyDone) {
             yield* send({ _tag: 'RunWorkflow', executionId: options.executionId });
           }
@@ -308,9 +336,11 @@ export const make = (send: Send) =>
 
       scheduleClock: Effect.fnUntraced(function* (_workflow, options) {
         const { clock } = options;
-        const exit = yield* Effect.orDie(
-          Schema.encodeEffect(clock.deferred.exitSchema)(Exit.void as never),
-        ) as Effect.Effect<unknown>;
+        const exit = yield* encodeDeferredExit(
+          yield* Effect.orDie(Schema.encodeEffect(clock.deferred.exitSchema)(Exit.void as never)) as Effect.Effect<
+            Exit.Exit<unknown, unknown>
+          >,
+        );
         const now = yield* Clock.currentTimeMillis;
         const wakeUpAt = now + Duration.toMillis(clock.duration);
 

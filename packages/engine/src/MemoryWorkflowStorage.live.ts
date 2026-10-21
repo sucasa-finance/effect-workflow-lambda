@@ -113,6 +113,12 @@ const makeMemoryStorage = Effect.gen(function* () {
         Effect.orDie,
       ),
 
+    unmarkActivityEnqueued: activityId =>
+      activities.has(activityId).pipe(
+        Effect.flatMap(exists => (exists ? Effect.void : enqueued.remove(activityId))),
+        Effect.orDie,
+      ),
+
     getDeferred: (executionId, deferredName) =>
       getJson(deferreds, `${executionId}/${deferredName}`).pipe(Effect.orDie),
 

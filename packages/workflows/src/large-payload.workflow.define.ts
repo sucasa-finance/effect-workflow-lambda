@@ -1,8 +1,7 @@
 import {Schema} from 'effect';
 import {Workflow} from 'effect/unstable/workflow';
 
-export const LargePayloadWorkflow = Workflow.make({
-  name: 'LargePayload',
+export const LargePayloadWorkflow = Workflow.make('LargePayload', {
   payload: {
     id: Schema.String,
     unicodeText: Schema.String,

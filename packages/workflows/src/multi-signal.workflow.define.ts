@@ -1,8 +1,7 @@
 import {Schema} from 'effect';
 import {DurableDeferred, Workflow} from 'effect/unstable/workflow';
 
-export const MultiSignalWorkflow = Workflow.make({
-  name: 'MultiSignal',
+export const MultiSignalWorkflow = Workflow.make('MultiSignal', {
   payload: {requestId: Schema.String},
   success: Schema.Struct({managerApproval: Schema.String, legalApproval: Schema.String}),
   idempotencyKey: ({requestId}) => requestId,

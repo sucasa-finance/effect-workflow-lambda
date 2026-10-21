@@ -108,6 +108,11 @@ const makeRedisStorage = Effect.gen(function* () {
         }),
       ),
 
+    unmarkActivityEnqueued: activityId =>
+      getJson(actKey(activityId)).pipe(
+        Effect.flatMap(exit => (Option.isSome(exit) ? Effect.void : del(enqKey(activityId)))),
+      ),
+
     getDeferred: (executionId, deferredName) => getJson(defKey(executionId, deferredName)),
 
     setDeferred: (executionId, deferredName, exit) =>

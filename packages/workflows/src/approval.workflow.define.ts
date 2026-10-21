@@ -3,8 +3,7 @@ import {DurableDeferred, Workflow} from 'effect/unstable/workflow';
 
 export const ApprovalInputSchema = Schema.Struct({requestId: Schema.String});
 
-export const ApprovalWorkflow = Workflow.make({
-  name: 'Approval',
+export const ApprovalWorkflow = Workflow.make('Approval', {
   payload: ApprovalInputSchema.fields,
   success: Schema.String,
   idempotencyKey: ({requestId}) => requestId,
