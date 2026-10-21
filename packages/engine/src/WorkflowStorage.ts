@@ -19,6 +19,8 @@ export type EffectWorkflowStorageService = {
   readonly getActivityExit: (activityId: string) => Effect.Effect<Option.Option<unknown>>;
   readonly setActivityExit: (activityId: string, exit: unknown) => Effect.Effect<void>;
   readonly markActivityEnqueued: (activityId: string) => Effect.Effect<boolean>;
+  /** Clears an enqueued mark that has no exit yet, so the next replay that reaches the activity dispatches it again. */
+  readonly unmarkActivityEnqueued: (activityId: string) => Effect.Effect<void>;
   readonly getDeferred: (executionId: string, deferredName: string) => Effect.Effect<Option.Option<unknown>>;
   readonly setDeferred: (executionId: string, deferredName: string, exit: unknown) => Effect.Effect<boolean>;
   readonly resetExecution: (executionId: string) => Effect.Effect<boolean>;

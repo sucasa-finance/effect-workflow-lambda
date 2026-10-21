@@ -56,7 +56,7 @@ export const make = (send: Send) =>
     const storage = yield* EffectWorkflowStorage;
 
     const registrations = new Map<string, Registration>();
-    const activityTargets = new Map<string, string>();
+    const activityTargets = new Map<string, { readonly activityId: string; reached: boolean }>();
 
     const registrationFor = (workflowName: string) =>
       Effect.suspend(() => {
@@ -96,8 +96,9 @@ export const make = (send: Send) =>
       const instance = WorkflowEngine.WorkflowInstance.initial(registration.workflow, executionId);
       instance.interrupted = record.value.interrupted;
 
-      if (targetActivityId !== undefined) {
-        activityTargets.set(executionId, targetActivityId);
+      const target = targetActivityId === undefined ? undefined : { activityId: targetActivityId, reached: false };
+      if (target !== undefined) {
+        activityTargets.set(executionId, target);
       }
 
       const result = yield* registration.execute(payload as object, executionId).pipe(
@@ -113,6 +114,16 @@ export const make = (send: Send) =>
         Effect.provideService(WorkflowEngine.WorkflowEngine, engine),
         Effect.ensuring(Effect.sync(() => activityTargets.delete(executionId))),
       );
+
+      // A sibling activity can suspend the replay before it reaches the target (e.g. the target waits on a dependency
+      // that settled in this replay). Clear the target's enqueued mark so the next replay that reaches it dispatches
+      // it again; otherwise this message is spent and the activity never runs.
+      if (target !== undefined && !target.reached) {
+        yield* storage.unmarkActivityEnqueued(target.activityId);
+        yield* Effect.logInfo('activity not reached in replay — will dispatch again when reached').pipe(
+          Effect.annotateLogs({ workflowName: record.value.workflowName, executionId, activityId: target.activityId }),
+        );
+      }
 
       if (result._tag === 'Complete') {
         if (Exit.isFailure(result.exit) && Cause.hasDies(result.exit.cause)) {
@@ -253,7 +264,9 @@ export const make = (send: Send) =>
           return new Workflow.Complete({ exit: exit as Exit.Exit<unknown, unknown> });
         }
 
-        if (activityTargets.get(instance.executionId) === activityId) {
+        const target = activityTargets.get(instance.executionId);
+        if (target?.activityId === activityId) {
+          target.reached = true;
           yield* Effect.logInfo('activity executing').pipe(
             Effect.annotateLogs({ activityId, activityName: activity.name, attempt }),
           );
