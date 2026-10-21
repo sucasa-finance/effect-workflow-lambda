@@ -36,6 +36,14 @@ export class MessageProcessor extends Context.Service<
   }
 >()('effect-workflow-engine/MessageProcessor') {}
 
+// Deferred exits cross the engine boundary as live `Exit`s whose values are already JSON-encoded by the deferred's
+// schema. Storage and the queue hold JSON, so the `Exit` itself is encoded on the way in and rebuilt on the way out.
+const DeferredExitJson = Schema.toCodecJson(Schema.Exit(Schema.Unknown, Schema.Unknown, Schema.Defect()));
+const encodeDeferredExit = (exit: Exit.Exit<unknown, unknown>) =>
+  Effect.orDie(Schema.encodeUnknownEffect(DeferredExitJson)(exit)) as Effect.Effect<unknown>;
+const decodeDeferredExit = (json: unknown) =>
+  Effect.orDie(Schema.decodeUnknownEffect(DeferredExitJson)(json)) as Effect.Effect<Exit.Exit<unknown, unknown>>;
+
 type Registration = {
   readonly workflow: Workflow.AnyWithProps;
   readonly execute: (payload: object, executionId: string) => Effect.Effect<unknown, unknown>;
@@ -295,12 +303,19 @@ export const make = (send: Send) =>
         Effect.gen(function* () {
           const instance = yield* WorkflowEngine.WorkflowInstance;
           const stored = yield* storage.getDeferred(instance.executionId, deferred.name);
-          return stored as Option.Option<Exit.Exit<unknown, unknown>>;
+          if (Option.isNone(stored)) {
+            return Option.none();
+          }
+          return Option.some(yield* decodeDeferredExit(stored.value));
         }),
 
       deferredDone: options =>
         Effect.gen(function* () {
-          const newlyDone = yield* storage.setDeferred(options.executionId, options.deferredName, options.exit);
+          const newlyDone = yield* storage.setDeferred(
+            options.executionId,
+            options.deferredName,
+            yield* encodeDeferredExit(options.exit),
+          );
           if (newlyDone) {
             yield* send({ _tag: 'RunWorkflow', executionId: options.executionId });
           }
@@ -308,9 +323,11 @@ export const make = (send: Send) =>
 
       scheduleClock: Effect.fnUntraced(function* (_workflow, options) {
         const { clock } = options;
-        const exit = yield* Effect.orDie(
-          Schema.encodeEffect(clock.deferred.exitSchema)(Exit.void as never),
-        ) as Effect.Effect<unknown>;
+        const exit = yield* encodeDeferredExit(
+          yield* Effect.orDie(Schema.encodeEffect(clock.deferred.exitSchema)(Exit.void as never)) as Effect.Effect<
+            Exit.Exit<unknown, unknown>
+          >,
+        );
         const now = yield* Clock.currentTimeMillis;
         const wakeUpAt = now + Duration.toMillis(clock.duration);
 
