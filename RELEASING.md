@@ -4,10 +4,12 @@ Tag-driven publishes: pushing `vX.Y.Z` runs CI, then publishes `effect-workflow-
 
 ## One-time setup
 
-1. Create an npm **granular access token** with read/write for `effect-workflow-lambda`
-   - https://www.npmjs.com/settings/~/tokens
-2. Add it as a repo secret named `NPM_TOKEN`
-   - https://github.com/sucasa-finance/effect-workflow-lambda/settings/secrets/actions
+Publishing uses npm [trusted publishing](https://docs.npmjs.com/trusted-publishers) (OIDC), so there is no npm token to create or rotate.
+
+1. On npmjs.com, open `effect-workflow-lambda` → Settings → Trusted Publisher and add GitHub Actions with:
+   - organization `sucasa-finance`, repository `effect-workflow-lambda`, workflow `publish.yml`
+   - **Allow `npm publish`** ticked
+2. `packages/engine/package.json` `repository.url` must stay `git+https://github.com/sucasa-finance/effect-workflow-lambda.git`; npm checks it against the publisher.
 
 ## Release checklist
 
