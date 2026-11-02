@@ -1,5 +1,5 @@
 import {Schema} from 'effect';
-import {DurableDeferred, Workflow} from 'effect/unstable/workflow';
+import {DurableDeferred, Workflow} from 'effect/workflow';
 
 export const InterruptibleWorkflow = Workflow.make('Interruptible', {
   payload: {id: Schema.String},

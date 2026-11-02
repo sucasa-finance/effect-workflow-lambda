@@ -1,5 +1,5 @@
 import {Schema} from 'effect';
-import {Workflow} from 'effect/unstable/workflow';
+import {Workflow} from 'effect/workflow';
 
 export const DuplicateExecuteWorkflow = Workflow.make('DuplicateExecute', {
   payload: {id: Schema.String},

@@ -1,6 +1,6 @@
 import type { Effect, Layer, Option } from 'effect';
-import type { DurableDeferred, Workflow } from 'effect/unstable/workflow';
-import type { WorkflowEngine } from 'effect/unstable/workflow/WorkflowEngine';
+import type { DurableDeferred, Workflow } from 'effect/workflow';
+import type { WorkflowEngine } from 'effect/workflow/WorkflowEngine';
 
 export interface WorkflowModule {
   readonly workflow: Workflow.AnyWithProps & {

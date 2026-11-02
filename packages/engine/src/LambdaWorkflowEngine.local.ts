@@ -1,7 +1,7 @@
 import { Context, Duration, Effect, Layer, Scope } from 'effect';
-import * as KeyValueStore from 'effect/unstable/persistence/KeyValueStore';
-import * as PersistedQueue from 'effect/unstable/persistence/PersistedQueue';
-import * as WorkflowEngine from 'effect/unstable/workflow/WorkflowEngine';
+import * as KeyValueStore from 'effect/persistence/KeyValueStore';
+import * as PersistedQueue from 'effect/persistence/PersistedQueue';
+import * as WorkflowEngine from 'effect/workflow/WorkflowEngine';
 
 import { EffectWorkflowMessageSchema, type EffectWorkflowMessage, make } from './LambdaWorkflowEngine.js';
 import { EffectWorkflowStorage } from './WorkflowStorage.js';

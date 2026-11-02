@@ -1,7 +1,7 @@
 import { Effect, Option } from 'effect';
-import { DurableDeferred, Workflow } from 'effect/unstable/workflow';
-import type * as WorkflowEngine from 'effect/unstable/workflow/WorkflowEngine';
-import * as HttpApiBuilder from 'effect/unstable/httpapi/HttpApiBuilder';
+import { DurableDeferred, Workflow } from 'effect/workflow';
+import type * as WorkflowEngine from 'effect/workflow/WorkflowEngine';
+import * as HttpApiBuilder from 'effect/http-api/HttpApiBuilder';
 import type { WorkflowModule } from '@effect-workflow-engine/workflows/module';
 
 import { RootHttpApi } from './api.define.js';

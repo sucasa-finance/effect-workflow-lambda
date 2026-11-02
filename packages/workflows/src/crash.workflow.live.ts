@@ -1,5 +1,5 @@
 import {Effect, Schema} from 'effect';
-import {Activity} from 'effect/unstable/workflow';
+import {Activity} from 'effect/workflow';
 
 import {ActivityCrashWorkflow, SimulatedCrashError, WorkflowCrashWorkflow} from './crash.workflow.define.js';
 

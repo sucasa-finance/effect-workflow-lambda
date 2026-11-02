@@ -1,7 +1,7 @@
 import {Schema} from 'effect';
-import {Workflow} from 'effect/unstable/workflow';
+import {Workflow} from 'effect/workflow';
 
-export class PaymentDeclinedError extends Schema.TaggedErrorClass<PaymentDeclinedError>()('PaymentDeclinedError', {
+export class PaymentDeclinedError extends Schema.TaggedError<PaymentDeclinedError>()('PaymentDeclinedError', {
   reason: Schema.String,
 }) {
   get message() {

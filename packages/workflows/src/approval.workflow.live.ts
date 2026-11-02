@@ -1,5 +1,5 @@
 import {Effect} from 'effect';
-import {DurableDeferred} from 'effect/unstable/workflow';
+import {DurableDeferred} from 'effect/workflow';
 
 import {ApprovalDecisionSignal, ApprovalWorkflow} from './approval.workflow.define.js';
 

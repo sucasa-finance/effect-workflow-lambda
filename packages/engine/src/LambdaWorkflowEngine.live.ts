@@ -1,7 +1,7 @@
 import { SQS } from '@effect-aws/client-sqs';
 import { Config, Context, Duration, Effect, Layer, Schema } from 'effect';
-import type { SqlClient } from 'effect/unstable/sql';
-import * as WorkflowEngine from 'effect/unstable/workflow/WorkflowEngine';
+import type { SqlClient } from 'effect/sql';
+import * as WorkflowEngine from 'effect/workflow/WorkflowEngine';
 
 import { EffectWorkflowMessageSchema, type Send, make, MessageProcessor } from './LambdaWorkflowEngine.js';
 import { EffectWorkflowStorageSqlLive } from './MySqlWorkflowStorage.live.js';
@@ -9,7 +9,7 @@ import { EffectWorkflowStorageSqlLive } from './MySqlWorkflowStorage.live.js';
 export { MessageProcessor, EffectWorkflowMessageSchema } from './LambdaWorkflowEngine.js';
 export type { EffectWorkflowMessage } from './LambdaWorkflowEngine.js';
 
-const EffectWorkflowQueueUrlConfig = Config.nonEmptyString('EFFECT_WORKFLOW_QUEUE_URL');
+const EffectWorkflowQueueUrlConfig = Config.NonEmptyString('EFFECT_WORKFLOW_QUEUE_URL');
 
 const makeSqsSend = Effect.gen(function* () {
   const sqs = yield* SQS;

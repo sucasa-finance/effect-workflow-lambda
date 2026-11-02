@@ -1,5 +1,5 @@
 import {Effect, Layer, Option} from 'effect';
-import * as KeyValueStore from 'effect/unstable/persistence/KeyValueStore';
+import * as KeyValueStore from 'effect/persistence/KeyValueStore';
 
 import {type EffectWorkflowExecutionRecord, EffectWorkflowStorage} from './WorkflowStorage.js';
 

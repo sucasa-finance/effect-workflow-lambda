@@ -2,13 +2,13 @@
 
 A queue-driven, replay-based implementation of Effect's [`WorkflowEngine`](https://github.com/Effect-TS/effect/blob/main/packages/effect/src/unstable/workflow/WorkflowEngine.ts) interface. Temporal-like semantics — replay-based execution, activity persistence, durable timers, typed failures, external signals, interruption — using **SQS**, **SQL or Redis**, and **Lambda**.
 
-> `effect@4.0.0-beta.62` · `effect/unstable/workflow`
+> `effect@4.0.0` · `effect/workflow`
 
 ## Define a workflow
 
 ```ts
 import { Schema } from 'effect'
-import { Workflow } from 'effect/unstable/workflow'
+import { Workflow } from 'effect/workflow'
 
 export const GreetWorkflow = Workflow.make({
   name: 'Greet',
@@ -25,7 +25,7 @@ Activities run exactly once — replays skip them and return the persisted resul
 
 ```ts
 import { Effect, Schema } from 'effect'
-import { Activity } from 'effect/unstable/workflow'
+import { Activity } from 'effect/workflow'
 import { GreetWorkflow } from './greet.workflow.define.js'
 
 export const GreetWorkflowHandler = GreetWorkflow.toLayer(
@@ -70,7 +70,7 @@ Uses `handler/sqs/Layer` — provides `WorkflowEngine` as a Layer for compositio
 
 ```ts
 import { Layer } from 'effect'
-import * as HttpApiBuilder from 'effect/unstable/httpapi/HttpApiBuilder'
+import * as HttpApiBuilder from 'effect/http-api/HttpApiBuilder'
 import { LambdaHandler } from '@effect-aws/lambda'
 import { layer as sqsEngineLayer } from '@effect-workflow-engine/engine/handler/sqs/Layer'
 

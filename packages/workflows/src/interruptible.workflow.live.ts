@@ -1,5 +1,5 @@
 import {Effect} from 'effect';
-import {DurableDeferred} from 'effect/unstable/workflow';
+import {DurableDeferred} from 'effect/workflow';
 
 import {BlockingSignal, InterruptibleWorkflow} from './interruptible.workflow.define.js';
 import type {WorkflowModule} from './module.js';
