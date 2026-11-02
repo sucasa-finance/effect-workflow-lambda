@@ -1,5 +1,5 @@
 import {Effect} from 'effect';
-import {DurableDeferred} from 'effect/unstable/workflow';
+import {DurableDeferred} from 'effect/workflow';
 
 import {LegalSignal, ManagerSignal, MultiSignalWorkflow} from './multi-signal.workflow.define.js';
 import type {WorkflowModule} from './module.js';

@@ -1,6 +1,6 @@
 import {it} from '@effect/vitest';
 import {Effect, Layer, Option} from 'effect';
-import {DurableDeferred} from 'effect/unstable/workflow';
+import {DurableDeferred} from 'effect/workflow';
 import {describe, expect} from 'vitest';
 
 import * as LambdaWorkflowEngine from '../src/LambdaWorkflowEngine.local.js';

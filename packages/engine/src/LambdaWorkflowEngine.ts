@@ -1,7 +1,7 @@
 import { Cause, Clock, Context, Duration, Effect, Exit, Fiber, Option, Schema } from 'effect';
-import type * as Activity from 'effect/unstable/workflow/Activity';
-import * as Workflow from 'effect/unstable/workflow/Workflow';
-import * as WorkflowEngine from 'effect/unstable/workflow/WorkflowEngine';
+import type * as Activity from 'effect/workflow/Activity';
+import * as Workflow from 'effect/workflow/Workflow';
+import * as WorkflowEngine from 'effect/workflow/WorkflowEngine';
 
 import { EffectWorkflowStorage } from './WorkflowStorage.js';
 

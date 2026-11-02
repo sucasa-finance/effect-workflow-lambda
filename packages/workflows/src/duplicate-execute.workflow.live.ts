@@ -1,5 +1,5 @@
 import {Effect, Schema} from 'effect';
-import {Activity} from 'effect/unstable/workflow';
+import {Activity} from 'effect/workflow';
 
 import {DuplicateExecuteWorkflow} from './duplicate-execute.workflow.define.js';
 import type {WorkflowModule} from './module.js';

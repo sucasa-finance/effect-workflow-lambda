@@ -1,5 +1,5 @@
 import {Effect, Layer, Option} from 'effect';
-import * as Redis from 'effect/unstable/persistence/Redis';
+import * as Redis from 'effect/persistence/Redis';
 
 import {type EffectWorkflowExecutionRecord, EffectWorkflowStorage} from './WorkflowStorage.js';
 

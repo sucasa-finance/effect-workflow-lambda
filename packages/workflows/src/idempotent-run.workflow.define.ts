@@ -1,5 +1,5 @@
 import {Schema} from 'effect';
-import {Workflow} from 'effect/unstable/workflow';
+import {Workflow} from 'effect/workflow';
 
 export const IdempotentRunWorkflow = Workflow.make('IdempotentRun', {
   payload: {key: Schema.String},

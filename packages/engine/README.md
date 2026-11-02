@@ -2,7 +2,7 @@
 
 Queue-driven, replay-based [`WorkflowEngine`](https://effect.website) for AWS Lambda + SQS.
 
-Implements Effect's `effect/unstable/workflow` engine interface with durable storage (memory, Redis, MySQL, or Postgres) and SQS as the work queue.
+Implements Effect's `effect/workflow` engine interface with durable storage (memory, Redis, MySQL, or Postgres) and SQS as the work queue.
 
 ## Install
 
@@ -12,9 +12,9 @@ npm install effect-workflow-lambda effect @effect-aws/client-sqs @effect-aws/lam
 
 Peer dependencies (required):
 
-- `effect` ^4.0.0-beta.62
-- `@effect-aws/client-sqs` ^2.0.0-beta.4
-- `@effect-aws/lambda` ^2.0.0-beta.4
+- `effect` ^4.0.0
+- `@effect-aws/client-sqs` ^2.0.0
+- `@effect-aws/lambda` ^2.0.0
 
 Storage drivers are provided by your app (e.g. `@effect/sql-pg`, `@effect/sql-mysql2`, or Effect Redis via `ioredis`).
 
@@ -58,7 +58,7 @@ export const handler = sqsHandler({
 
 ## Status
 
-Built against Effect v4 beta (`effect/unstable/workflow`). APIs may change as Effect stabilizes the workflow module.
+Built against Effect v4 beta (`effect/workflow`). APIs may change as Effect stabilizes the workflow module.
 
 ## Releases
 

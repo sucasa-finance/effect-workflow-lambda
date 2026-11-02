@@ -1,5 +1,5 @@
 import {Effect, Schema} from 'effect';
-import {Activity, DurableClock} from 'effect/unstable/workflow';
+import {Activity, DurableClock} from 'effect/workflow';
 
 import {SalutationLookupError, GreetBlankNameError, GreetWorkflow} from './greet.workflow.define.js';
 import type {WorkflowModule} from './module.js';

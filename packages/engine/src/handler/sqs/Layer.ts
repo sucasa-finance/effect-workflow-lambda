@@ -1,6 +1,6 @@
 import { SQS, type SQSService } from '@effect-aws/client-sqs';
 import { Context, Effect, Layer } from 'effect';
-import * as WorkflowEngine from 'effect/unstable/workflow/WorkflowEngine';
+import * as WorkflowEngine from 'effect/workflow/WorkflowEngine';
 
 import { make, MessageProcessor } from '../../LambdaWorkflowEngine.js';
 import { EffectWorkflowStorage } from '../../WorkflowStorage.js';

@@ -1,5 +1,5 @@
 import {Effect, Schema} from 'effect';
-import {Activity} from 'effect/unstable/workflow';
+import {Activity} from 'effect/workflow';
 
 import {PaymentDeclinedError, TypedFailureWorkflow} from './typed-failure.workflow.define.js';
 import type {WorkflowModule} from './module.js';

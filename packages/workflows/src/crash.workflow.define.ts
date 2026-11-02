@@ -1,5 +1,5 @@
 import {Schema} from 'effect';
-import {Workflow} from 'effect/unstable/workflow';
+import {Workflow} from 'effect/workflow';
 
 export const CrashInputSchema = Schema.Struct({name: Schema.String, failUntilIso: Schema.String});
 
@@ -15,7 +15,7 @@ export const ActivityCrashWorkflow = Workflow.make('ActivityCrash', {
   idempotencyKey: ({name}) => name,
 });
 
-export class SimulatedCrashError extends Schema.TaggedErrorClass<SimulatedCrashError>()('SimulatedCrashError', {
+export class SimulatedCrashError extends Schema.TaggedError<SimulatedCrashError>()('SimulatedCrashError', {
   site: Schema.String,
   failUntilIso: Schema.String,
 }) {

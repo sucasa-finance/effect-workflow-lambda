@@ -1,11 +1,11 @@
 import {Schema} from 'effect';
-import {Workflow} from 'effect/unstable/workflow';
+import {Workflow} from 'effect/workflow';
 
 export const GreetInputSchema = Schema.Struct({name: Schema.String});
 
 export type GreetInput = typeof GreetInputSchema.Type;
 
-export class SalutationLookupError extends Schema.TaggedErrorClass<SalutationLookupError>()('SalutationLookupError', {
+export class SalutationLookupError extends Schema.TaggedError<SalutationLookupError>()('SalutationLookupError', {
   name: Schema.String,
 }) {
   get message() {
@@ -13,7 +13,7 @@ export class SalutationLookupError extends Schema.TaggedErrorClass<SalutationLoo
   }
 }
 
-export class GreetBlankNameError extends Schema.TaggedErrorClass<GreetBlankNameError>()('GreetBlankNameError', {
+export class GreetBlankNameError extends Schema.TaggedError<GreetBlankNameError>()('GreetBlankNameError', {
   name: Schema.String,
 }) {
   get message() {

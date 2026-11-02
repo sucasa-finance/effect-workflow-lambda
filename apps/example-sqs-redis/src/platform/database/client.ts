@@ -1,5 +1,5 @@
 import { Effect, Layer } from 'effect';
-import * as Redis from 'effect/unstable/persistence/Redis';
+import * as Redis from 'effect/persistence/Redis';
 import { Redis as RedisClient } from 'ioredis';
 
 const host = process.env.REDIS_HOST ?? 'localhost';
@@ -15,6 +15,23 @@ const makeRedis = Effect.gen(function* () {
       Effect.tryPromise({
         try: () => client.call(command, ...args) as Promise<A>,
         catch: (cause) => new Redis.RedisError({ cause }),
+      }),
+    // Pub/sub needs its own connection: a subscribed ioredis client cannot send other commands.
+    subscribe: (channel, onMessage) =>
+      Effect.gen(function* () {
+        const subscriber = yield* Effect.acquireRelease(
+          Effect.sync(() => client.duplicate()),
+          (connection) => Effect.sync(() => connection.disconnect()),
+        );
+        subscriber.on('message', (from: string, message: string) => onMessage({ channel: from, message }));
+        yield* Effect.tryPromise({
+          try: () => subscriber.subscribe(channel),
+          catch: (cause) => new Redis.RedisError({ cause }),
+        });
+        // Completes with a failure when the subscriber connection closes, so Redis.subscribe fails its queue.
+        return Effect.callback<void, Redis.RedisError>((resume) => {
+          subscriber.once('end', () => resume(Effect.fail(new Redis.RedisError({ cause: 'subscriber connection closed' }))));
+        });
       }),
   });
 });
